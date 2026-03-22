@@ -112,11 +112,12 @@ Use WebSearch to find real facts. Look for:
 Search at least twice to cross-check facts.
 
 STEP 3 — WRITE THE EMAIL
-Write 2–3 paragraphs with this character:
+Write exactly 2 short paragraphs (4–5 sentences each) with this character:
 - Conversational — like a brilliant friend who just discovered something amazing
 - Specific — actual numbers, names, places. No hand-waving.
 - Surprising — go deeper than the first Wikipedia paragraph
 - No jargon unless immediately explained in plain English
+- Tight — every sentence earns its place. No fluff, no recap, no throat-clearing.
 
 Also write a subject line that:
 - Sparks instant curiosity without naming the topic directly

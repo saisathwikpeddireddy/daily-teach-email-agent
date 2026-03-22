@@ -1,0 +1,39 @@
+name: Daily Teach Email
+
+on:
+  schedule:
+    - cron: "30 3 * * *"   # 9:00 AM IST (UTC+5:30)
+  workflow_dispatch:        # allow manual trigger from GitHub UI
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install anthropic claude-agent-sdk
+
+      - name: Create gmail_config.json
+        run: |
+          echo '{"app_password": "${{ secrets.GMAIL_APP_PASSWORD }}"}' > gmail_config.json
+
+      - name: Run agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 daily_teach.py
+
+      - name: Commit updated topics_used.txt
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add topics_used.txt
+          git diff --cached --quiet || git commit -m "chore: record today's topic [skip ci]"
+          git push
