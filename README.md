@@ -1,10 +1,13 @@
 # Daily Teach Email Agent
 
-A Python agent that emails you one genuinely fascinating thing every day at 9am. It picks a topic it hasn't covered before, researches it on the web, and writes 2–3 engaging paragraphs — conversational, specific, and surprising. Not textbook facts. The kind of thing you'd text a friend.
+A Python agent that emails you one genuinely fascinating thing every day at 9am IST. It picks a topic it hasn't covered before, researches it on the web, and writes two short, engaging paragraphs — conversational, specific, and surprising. Not textbook facts. The kind of thing you'd text a friend.
+
+Runs entirely on GitHub Actions — no laptop required.
 
 **Example subjects it has sent:**
 - *Why Every GPS Satellite Clock Is Deliberately Set to the Wrong Time*
 - *Why the Fastest Thing in the Universe Has a 100,000-Year Commute*
+- *The 117,000-Year Catastrophe That Almost Erased Us*
 
 ---
 
@@ -13,34 +16,29 @@ A Python agent that emails you one genuinely fascinating thing every day at 9am.
 1. Reads `topics_used.txt` to see what's already been covered
 2. Launches a Claude agent (via `claude_agent_sdk`) that searches the web, picks a novel topic, and writes the email
 3. Sends it via Gmail SMTP
-4. Appends the topic to `topics_used.txt` so it never repeats
-5. Runs automatically every day at 9am via a cron job — no apps need to be open
+4. Appends the topic to `topics_used.txt` and commits it back to the repo so it never repeats
+5. Triggered every day at 9am IST by a GitHub Actions scheduled workflow — your laptop never needs to be on
 
 ---
 
 ## Setup
 
-### 1. Install dependencies
+### 1. Fork this repo
 
-```bash
-pip install anthropic claude-agent-sdk
-```
+### 2. Add two GitHub Actions secrets
 
-### 2. Create your Gmail App Password
+Go to your repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
+
+| Secret name | Value |
+|---|---|
+| `ANTHROPIC_API_KEY` | Your key from [console.anthropic.com](https://console.anthropic.com) |
+| `GMAIL_APP_PASSWORD` | A Gmail App Password (see below) |
+
+### 3. Create a Gmail App Password
 
 1. Go to [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
 2. Create a new App Password (name it anything, e.g. "Daily Teach")
-3. Copy the 16-character password
-
-### 3. Create `gmail_config.json`
-
-```json
-{
-  "app_password": "xxxx xxxx xxxx xxxx"
-}
-```
-
-> This file is gitignored — never commit it.
+3. Copy the 16-character password — that's your `GMAIL_APP_PASSWORD`
 
 ### 4. Edit the email address
 
@@ -51,25 +49,20 @@ EMAIL_FROM = "you@gmail.com"
 EMAIL_TO   = "you@gmail.com"
 ```
 
-### 5. Set up the cron job
+### 5. Enable Actions
 
-```bash
-crontab -e
-```
-
-Add this line (update the path to match where you cloned the repo):
-
-```
-0 9 * * * "/path/to/daily-teach-email-agent/run_agent.sh"
-```
-
-That's it. Your Mac just needs to be on and awake at 9am.
+Go to the **Actions** tab in your repo and enable workflows if prompted. The schedule will kick in automatically — first email arrives the next morning at 9am IST.
 
 ---
 
 ## Run it manually
 
+Trigger a run anytime from the **Actions** tab → **Daily Teach Email** → **Run workflow**.
+
+Or locally:
+
 ```bash
+pip install anthropic claude-agent-sdk
 python3 daily_teach.py
 ```
 
@@ -80,15 +73,15 @@ python3 daily_teach.py
 | File | Purpose |
 |---|---|
 | `daily_teach.py` | Main agent — research, write, send |
-| `run_agent.sh` | Cron-safe shell wrapper (sets correct PATH for headless runs) |
-| `topics_used.txt` | One topic per line, appended after each send |
-| `gmail_config.json` | Your Gmail App Password — **gitignored, never commit** |
-| `agent.log` | Runtime log for debugging |
+| `.github/workflows/daily_teach.yml` | GitHub Actions schedule (9am IST daily) |
+| `topics_used.txt` | One topic per line, committed after each send |
+| `run_agent.sh` | Optional local cron wrapper |
+| `gmail_config.json` | Gmail App Password for local runs — **gitignored, never commit** |
 
 ---
 
 ## Requirements
 
 - Python 3.11+
-- [Claude Code](https://claude.ai/code) installed (the agent SDK uses its bundled binary)
+- An Anthropic API key
 - A Gmail account with [App Passwords](https://myaccount.google.com/apppasswords) enabled (requires 2FA)
