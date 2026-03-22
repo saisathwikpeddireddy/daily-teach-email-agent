@@ -14,7 +14,7 @@ A Python agent that emails you one genuinely fascinating thing every day at 9am.
 2. Launches a Claude agent (via `claude_agent_sdk`) that searches the web, picks a novel topic, and writes the email
 3. Sends it via Gmail SMTP
 4. Appends the topic to `topics_used.txt` so it never repeats
-5. Runs automatically every day at 9am via Claude Code's scheduled task system
+5. Runs automatically every day at 9am via a cron job — no apps need to be open
 
 ---
 
@@ -51,15 +51,23 @@ EMAIL_FROM = "you@gmail.com"
 EMAIL_TO   = "you@gmail.com"
 ```
 
-### 5. Schedule it
+### 5. Set up the cron job
 
-The agent runs via Claude Code's built-in scheduled task system. Open Claude Code and create a scheduled task at 9am that runs:
-
-```
-/path/to/your/python3 "/path/to/daily_teach.py"
+```bash
+crontab -e
 ```
 
-Or run it manually any time:
+Add this line (update the path to match where you cloned the repo):
+
+```
+0 9 * * * "/path/to/daily-teach-email-agent/run_agent.sh"
+```
+
+That's it. Your Mac just needs to be on and awake at 9am.
+
+---
+
+## Run it manually
 
 ```bash
 python3 daily_teach.py
@@ -72,7 +80,7 @@ python3 daily_teach.py
 | File | Purpose |
 |---|---|
 | `daily_teach.py` | Main agent — research, write, send |
-| `run_agent.sh` | Cron-safe shell wrapper (handles PATH) |
+| `run_agent.sh` | Cron-safe shell wrapper (sets correct PATH for headless runs) |
 | `topics_used.txt` | One topic per line, appended after each send |
 | `gmail_config.json` | Your Gmail App Password — **gitignored, never commit** |
 | `agent.log` | Runtime log for debugging |
