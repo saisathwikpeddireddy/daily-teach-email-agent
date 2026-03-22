@@ -1,0 +1,5 @@
+gmail_config.json
+agent.log
+pending/
+__pycache__/
+*.pyc

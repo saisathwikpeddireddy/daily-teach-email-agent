@@ -1,0 +1,2 @@
+The random walk of photons from the Sun's core to its surface
+Relativistic time dilation corrections hard-coded into GPS satellite clocks
