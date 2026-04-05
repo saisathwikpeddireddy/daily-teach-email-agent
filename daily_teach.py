@@ -112,7 +112,7 @@ Use WebSearch to find real facts. Look for:
 Search at least twice to cross-check facts.
 
 STEP 3 — WRITE THE EMAIL
-Write exactly 2 short paragraphs (4–5 sentences each) with this character:
+Write exactly 1 paragraph (4–5 sentences max) with this character:
 - Conversational — like a brilliant friend who just discovered something amazing
 - Specific — actual numbers, names, places. No hand-waving.
 - Surprising — go deeper than the first Wikipedia paragraph
@@ -154,6 +154,7 @@ async def run() -> None:
     async for message in query(
         prompt=prompt,
         options=ClaudeAgentOptions(
+            model="claude-haiku-4-5-20251001",
             allowed_tools=["WebSearch", "WebFetch", "Write"],
             permission_mode="bypassPermissions",
             cwd=str(PROJECT_DIR),
