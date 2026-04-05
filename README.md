@@ -1,6 +1,10 @@
 # Daily Teach Email Agent
 
-A Python agent that emails you one genuinely fascinating thing every day at 9am IST. It picks a topic it hasn't covered before, researches it on the web, and writes two short, engaging paragraphs — conversational, specific, and surprising. Not textbook facts. The kind of thing you'd text a friend.
+> **As a curious person who wants to keep learning but never has time to go looking,**
+> **I want a short, surprising email waiting in my inbox every morning**
+> **so that I start my day knowing something I didn't know yesterday — without any effort on my part.**
+
+A Python agent that emails you one genuinely fascinating thing every day at 9am IST. It picks a topic it hasn't covered before, researches it on the web, and writes three short punchy paragraphs — conversational, specific, and surprising. Not textbook facts. The kind of thing you'd text a friend.
 
 Runs entirely on GitHub Actions — no laptop required.
 
