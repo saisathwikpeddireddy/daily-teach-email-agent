@@ -112,12 +112,19 @@ Use WebSearch to find real facts. Look for:
 Search at least twice to cross-check facts.
 
 STEP 3 — WRITE THE EMAIL
-Write exactly 1 paragraph (4–5 sentences max) with this character:
-- Conversational — like a brilliant friend who just discovered something amazing
+Write 3 short punchy paragraphs. Each paragraph is 2 sentences max. Rules:
+- Conversational — like a brilliant friend texting you something wild
 - Specific — actual numbers, names, places. No hand-waving.
 - Surprising — go deeper than the first Wikipedia paragraph
-- No jargon unless immediately explained in plain English
-- Tight — every sentence earns its place. No fluff, no recap, no throat-clearing.
+- No jargon unless explained immediately in plain English
+- No em dashes (—). Use commas, colons, or periods instead.
+- Short sentences. Never more than 20 words in a sentence.
+- Every sentence earns its place. No fluff.
+
+Structure:
+- Para 1: The surprising hook — one concrete fact that stops you cold
+- Para 2: Why it works / the mechanism — the detail that makes it click
+- Para 3: The punchline or implication — what it means or why it matters
 
 Also write a subject line that:
 - Sparks instant curiosity without naming the topic directly
@@ -131,8 +138,8 @@ Use the Write tool to create exactly these three files:
 2. `{PENDING_DIR}/subject.txt` — just the subject line, one line, nothing else
 
 3. `{PENDING_DIR}/body.html` — just the HTML email body, nothing else
-   Use <p> tags for paragraphs, <strong> for emphasis, <em> for italics.
-   Do not include <html>, <head>, or <body> tags — just the content paragraphs.
+   Use <p> tags for each paragraph. Use <strong> for the single most surprising number or fact.
+   Do not include <html>, <head>, or <body> tags. No em dashes anywhere.
 
 After writing all three files, confirm they were created successfully.
 """
